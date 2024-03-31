@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -10,32 +11,32 @@ public class Player : MonoBehaviour
     public Vector2 inputVec;
     Rigidbody2D rigid;
     public float speed;
+    SpriteRenderer spriteRenderer;
+    Animator Animator;
 
 
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        Animator = GetComponent<Animator>();
     }
 
-    void Update()
+    void OnMove(InputValue value)
     {
-        inputVec.x = Input.GetAxisRaw("Horizontal");
-        inputVec.y = Input.GetAxisRaw("Vertical");
-
+        inputVec = value.Get<Vector2>();
     }
-
     void FixedUpdate()
     {
-        /*//1.힘을준다
-        rigid.AddForce(inputVec);
-
-        //2. 속도제어
-        rigid.velocity = inputVec;*/
-
-        //3. 위치이동
-
-        Vector2 nextVec = inputVec.normalized * speed * Time.fixedDeltaTime;
+        Vector2 nextVec = inputVec * speed * Time.fixedDeltaTime;
         rigid.MovePosition(rigid.position + nextVec);
+    }
 
+    void LateUpdate()
+    {
+        Animator.SetFloat("Speed", inputVec.magnitude);
+
+        if(inputVec.x != 0)
+            spriteRenderer.flipX = inputVec.x < 0; 
     }
 }
