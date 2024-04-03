@@ -5,6 +5,12 @@ using UnityEngine.UIElements;
 
 public class Reposition : MonoBehaviour
 {
+    Collider2D coll;
+
+    void Awake()
+    {
+       coll = GetComponent<Collider2D>();
+    }
 
     private void OnTriggerExit2D(Collider2D collision) //나갔을때 발생.
     {
@@ -51,6 +57,12 @@ public class Reposition : MonoBehaviour
                 }
                 break;
             case "Enemy":
+                if( coll.enabled)
+                {
+                    transform.Translate(playerDir * 20 + new Vector3(Random.Range(-3f,3f),0f));
+                    //몬스터 재배치
+                    //재배치하고나면 재배치된 몬스터의 체력을 다시 채워줄 필요가 있음.
+                }
                 break;
 
         }
