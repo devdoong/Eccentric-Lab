@@ -153,7 +153,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyPrefeb:
-  - {fileID: 3478636578606904968, guid: 6ed65023d8e3c5042b87f0dce5efafa6, type: 3}
   - {fileID: 3857006050853453449, guid: a6afe093af9191d4e97adf711e5055e9, type: 3}
 --- !u!4 &43425473
 Transform:
@@ -387,6 +386,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af9e69a193be349439ac94ad9448c026, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameTime: 0
+  maxGameTime: 20
   player: {fileID: 1361213788}
   pool: {fileID: 43425472}
 --- !u!4 &505685661
@@ -677,6 +678,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: []
+  spawnData:
+  - spawnTime: 0.7
+    spriteType: 0
+    health: 10
+    speed: 1.5
+  - spawnTime: 0.2
+    spriteType: 1
+    health: 15
+    speed: 2.4
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
