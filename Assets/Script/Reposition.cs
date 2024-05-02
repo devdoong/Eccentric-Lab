@@ -14,7 +14,6 @@ public class Reposition : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision) //나갔을때 발생.
     {
-        Debug.Log("나감");
         if(!collision.CompareTag("Area")) //타일맵에서 탈주한게 Area라면 아래 코드 실행하는거임.
             return;
 
@@ -42,12 +41,10 @@ public class Reposition : MonoBehaviour
             case "Ground1":
                 if(diffX > diffY)
                 {
-                    Debug.Log("그라운드 호출");
                     transform.Translate(Vector3.right * dirX * 40); //Translate 이동할 양을 넣어주면된다.
                 }
                 else if (diffX < diffY)
                 {
-                    Debug.Log("그라운드 호출");
                     transform.Translate(Vector3.up * dirY * 40);
                 }
                 else
