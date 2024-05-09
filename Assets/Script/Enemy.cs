@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     public Rigidbody2D target;
 
     bool isLive;
-
+    //123123
     Rigidbody2D rigid;
     Animator anim;
     SpriteRenderer spriter;
