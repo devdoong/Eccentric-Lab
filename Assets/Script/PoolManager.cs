@@ -6,7 +6,7 @@ using UnityEngine.Apple.ReplayKit;
 public class PoolManager : MonoBehaviour
 {
     public GameObject[] EnemyPrefeb;
-    //프리팹들을 보관할 변수
+    //프리팹들을 보관할 변수.
     List<GameObject>[] pools;
     //풀 담당을 하는 리스트들
 
