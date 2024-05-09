@@ -34,7 +34,7 @@ public class Spawner : MonoBehaviour
     void Spawn()
     {
         GameObject enemy = GameManager.instance.pool.Get(0); //그냥 Enemy라는 프리팹을 계속 들고오고 Spawn()함수에서
-        /*어디에*/enemy.transform.position = spawnPoint[UnityEngine.Random.Range(0,spawnPoint.Length)].position; //GetComponentsInChildren 이게 자기 자신도 포함이라서 0은 건너뛰고 1부터
+        /*어디에*/enemy.transform.position = spawnPoint[UnityEngine.Random.Range(1,spawnPoint.Length)].position; //GetComponentsInChildren 이게 자기 자신도 포함이라서 0은 건너뛰고 1부터
         enemy.GetComponent<Enemy>().Init(spawnData[level]);
     }
 }
