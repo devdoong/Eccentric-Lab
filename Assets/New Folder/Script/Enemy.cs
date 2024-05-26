@@ -11,10 +11,12 @@ public class Enemy : MonoBehaviour
     public float maxHealth;
     public RuntimeAnimatorController[] animCon;
     public Rigidbody2D target;
+    WaitForFixedUpdate wait;
 
     bool isLive;
-    //123123
+
     Rigidbody2D rigid;
+    Collider2D coll;
     Animator anim;
     SpriteRenderer spriter;
 
@@ -23,11 +25,13 @@ public class Enemy : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         spriter = GetComponent<SpriteRenderer>();
+        wait = new WaitForFixedUpdate();
+        coll = GetComponent<Collider2D>();
     }
 
     void FixedUpdate()
     {
-        if (!isLive) return;
+        if (!isLive || anim.GetCurrentAnimatorStateInfo(0).IsName("Hit")) return;
 
         Vector2 dirVec = target.position - rigid.position; //방향 = 타겟 위치 - 몹위치
         Vector2 nextVec = dirVec.normalized*speed*Time.fixedDeltaTime;
@@ -47,6 +51,10 @@ public class Enemy : MonoBehaviour
     {
         target = GameManager.instance.player.GetComponent<Rigidbody2D>();
         isLive = true;
+        coll.enabled = true;//비활성화
+        rigid.simulated = true; //물리를 시뮬레이션 돌리겠냐 안돌리겠냐.
+        spriter.sortingLayerID = 2;
+        anim.SetBool("Dead", false);
         health = maxHealth;
     }
 
@@ -58,23 +66,40 @@ public class Enemy : MonoBehaviour
         health = data.health; 
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collision) //두번 트리거발생해서 사망로직 연달아 실행되는것 방지해야함
     {
-        if (!collision.CompareTag("Bullet"))
+        if (!collision.CompareTag("Bullet") || !isLive /*사망 로직이 연달아 실행되는것을 방지*/)
             return;
 
         health -= collision.GetComponent<Bullet>().damage;
-        Debug.Log(this.health);
+        StartCoroutine(KnockBack());
 
         if (health > 0)
         {
             //.. Live 유무, Hit Action
-
+            anim.SetTrigger("Hit");
         }
         else
         {
             //..Die
-            Dead();
+            isLive = false;
+            coll.enabled = false;//비활성화
+            rigid.simulated = false; //물리를 시뮬레이션 돌리겠냐 안돌리겠냐.
+            spriter.sortingLayerID = 1;
+            anim.SetBool("Dead", true);
+            GameManager.instance.kill++;
+            GameManager.instance.GetExp();
+        }
+
+        IEnumerator KnockBack()
+        {
+            yield return wait; //다음 하나의 물리 프레임까지 딜레이
+
+            //플레이어의 위치 불러오고 본인(몬스터)의 위치 구해옴
+            Vector3 playerPos = GameManager.instance.player.transform.position;
+            Vector3 dirVec = transform.position - playerPos;
+            rigid.AddForce(dirVec.normalized * 2, ForceMode2D.Impulse); //넉백
+
         }
 
         void Dead()

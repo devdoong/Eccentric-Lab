@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     public float speed;
     SpriteRenderer spriteRenderer;
     Animator Animator;
+    public EnemyScanner EnemyScanner;
 
 
     void Start()
@@ -20,6 +21,7 @@ public class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         Animator = GetComponent<Animator>();
+        EnemyScanner = GetComponent<EnemyScanner>();
     }
 
     void OnMove(InputValue value)

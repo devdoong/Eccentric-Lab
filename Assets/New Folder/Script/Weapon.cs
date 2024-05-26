@@ -11,6 +11,14 @@ public class Weapon : MonoBehaviour
     public int count;
     public float speed;
 
+    Player player;
+    void Awake()
+    {
+       player = GetComponentInParent<Player>();
+    }
+
+    float timer;
+
     private void Start()
     {
         Init();
@@ -20,21 +28,25 @@ public class Weapon : MonoBehaviour
     {
         switch (id)
         {
-            case 0:
+            case 0: //근접 회전 무기
                 transform.Rotate(Vector3.back * speed * Time.deltaTime);
-
-
                 break;
 
 
             default:
+                timer += Time.deltaTime;
+                if (timer > speed)
+                {
+                    timer = 0f;
+                    Fire();
+                }
                 break;
         }
 
         //테스트용
         if (Input.GetButtonDown("Jump"))
         {
-            LevelUp(20, 2);
+            LevelUp(10/*Damage*/, 1/*count*/);
         }
         //
     }
@@ -57,11 +69,11 @@ public class Weapon : MonoBehaviour
             case 0:
                 speed = 150;
                 Batch();
-
                 break;
 
 
-                default:
+            default:
+                speed = 0.85f;
                 break;
         }
 
@@ -93,7 +105,25 @@ public class Weapon : MonoBehaviour
             bullet.Rotate(rotateVec);
             bullet.Translate(bullet.up * 1.5f, Space.World);
 
-            bullet.GetComponent<Bullet>().Init(damage, -1); //-1 관통 무한
+            bullet.GetComponent<Bullet>().Init(damage, -1, Vector3.zero); //-1 관통 무한
         }
+    }
+
+    void Fire()
+    {
+        if (!player.EnemyScanner.nearestTarget)
+            return;
+
+        Vector3 targetPos = player.EnemyScanner.nearestTarget.position; //타겟 포지션
+        Vector3 dir = targetPos - transform.position; //방향 구하기 타겟포지션 - 내 포지션
+        dir = dir.normalized; //벡터 크기 정규화 (방향은 유지)
+
+
+
+
+        Transform bullet = GameManager.instance.pool.Get(prefabId/*2*/).transform;
+        bullet.position = transform.position;
+        bullet.rotation = Quaternion.FromToRotation(Vector3.up, dir);//목표 방향으로 로테이션 //축을 전달해줘야함
+        bullet.GetComponent<Bullet>().Init(damage, count/*남은관통수*/, dir);
     }
 }
