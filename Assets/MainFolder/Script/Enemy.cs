@@ -53,7 +53,7 @@ public class Enemy : MonoBehaviour
         isLive = true;
         coll.enabled = true;//비활성화
         rigid.simulated = true; //물리를 시뮬레이션 돌리겠냐 안돌리겠냐.
-        spriter.sortingLayerID = 2;
+        spriter.sortingOrder = 2;
         anim.SetBool("Dead", false);
         health = maxHealth;
     }
@@ -85,7 +85,7 @@ public class Enemy : MonoBehaviour
             isLive = false;
             coll.enabled = false;//비활성화
             rigid.simulated = false; //물리를 시뮬레이션 돌리겠냐 안돌리겠냐.
-            spriter.sortingLayerID = 1;
+            spriter.sortingOrder = 1;
             anim.SetBool("Dead", true);
             GameManager.instance.kill++;
             GameManager.instance.GetExp();
