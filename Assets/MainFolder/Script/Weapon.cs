@@ -14,15 +14,11 @@ public class Weapon : MonoBehaviour
     Player player;
     void Awake()
     {
-       player = GetComponentInParent<Player>();
+       player = GameManager.instance.player;
     }
 
     float timer;
 
-    private void Start()
-    {
-        Init();
-    }
     // Update is called once per frame
     void Update()
     {
@@ -43,17 +39,17 @@ public class Weapon : MonoBehaviour
                 break;
         }
 
-        //테스트용
+        /*//테스트용
         if (Input.GetButtonDown("Jump"))
         {
-            LevelUp(10/*Damage*/, 1/*count*/);
+            LevelUp(10*//*Damage*//*, 1*//*count*//*);
         }
-        //
+        //*/
     }
 
     public void LevelUp(float damage, int count)
     {
-        this.damage = damage;
+        this.damage *= damage;
         this.count += count;
 
         if (id == 0) Batch();
@@ -62,8 +58,28 @@ public class Weapon : MonoBehaviour
 
     }
 
-    public void Init()
+    public void Init(ItemData data)
     {
+        //Item Data 만져줄거임 지금부터
+        //Basic Set 기본 세팅
+        name = "Weapon " + data.itemId;
+        transform.parent = player.transform; //플레이어의 자식으로 등록됨
+        transform.localPosition = Vector3.zero; //플레이어의 내에서 0으로 좌표를 맞춤
+
+        //Property Set id,damage,count  등등
+        id = data.itemId;
+        damage = data.baseDamage;
+        count = data.baseCount;
+
+        for (int index = 0; index < GameManager.instance.pool.EnemyPrefeb.Length; index++)
+        {
+            if (data.projectile == GameManager.instance.pool.EnemyPrefeb[index])
+            {
+                prefabId = index;
+                break;
+            }
+        }
+
         switch (id)
         {
             case 0:

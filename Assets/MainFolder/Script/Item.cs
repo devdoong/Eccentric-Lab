@@ -27,7 +27,7 @@ public class Item : MonoBehaviour
     }
     void LateUpdate()
     {
-        textLevel.text = "Lv." + (level + 1);
+        textLevel.text = "Lv." + (level);
     }
     public void OnClick()
     {
@@ -35,6 +35,17 @@ public class Item : MonoBehaviour
         {
             case ItemData.ItemType.Melee:
             case ItemData.ItemType.Range: //★두개를 붙혀주는이유 파악해야함
+                if (level == 0)
+                {
+                    GameObject newWeapon = new GameObject(); //업그레이드 버튼 눌러줬기때매 첫 생성
+                    weapon = newWeapon.AddComponent<Weapon>();
+                    weapon.Init(data); //Data폴더의 itemdata를 전달
+                }
+                else
+                {
+                    //일부러 42분시간대와 다르게 한것임 이렇게 하는게 맞음
+                    weapon.LevelUp(data.damages[level], data.counts[level]); //레벨업 버튼 적용해줌
+                }
                 break;
 
 
