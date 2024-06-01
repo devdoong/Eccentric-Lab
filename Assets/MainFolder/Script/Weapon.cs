@@ -17,6 +17,11 @@ public class Weapon : MonoBehaviour
        player = GameManager.instance.player;
     }
 
+    public float getValue()
+    {
+        return speed;
+    }
+
     float timer;
 
     // Update is called once per frame
@@ -54,7 +59,7 @@ public class Weapon : MonoBehaviour
 
         if (id == 0) Batch();
 
-
+        player.BroadcastMessage("ApplyGear",SendMessageOptions.DontRequireReceiver);
 
     }
 
@@ -92,8 +97,9 @@ public class Weapon : MonoBehaviour
                 speed = 0.85f;
                 break;
         }
+        //어플라이기어라는 함수를 가지고 있는 모두에게 이걸 실행해줘
+        player.BroadcastMessage("ApplyGear",SendMessageOptions.DontRequireReceiver);
 
-        
     }
     void Batch()
     {
