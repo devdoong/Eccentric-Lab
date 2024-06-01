@@ -105,7 +105,6 @@ public class Enemy : MonoBehaviour
         void Dead()
         {
             gameObject.SetActive(false); //일단 파괴가 아닌 비활성화로 돌려줌
-            
         }
     }
 }
