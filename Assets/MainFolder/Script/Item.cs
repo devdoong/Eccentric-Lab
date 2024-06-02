@@ -15,6 +15,8 @@ public class Item : MonoBehaviour
 
     Image icon;
     Text textLevel;
+    Text textName;
+    Text textDesc;
 
     private void Awake()
     {
@@ -25,11 +27,33 @@ public class Item : MonoBehaviour
 
         Text[] texts = GetComponentsInChildren<Text>(); //이건 어짜피 텍스트가 하나밖에 없어서 그냥 가져옴
         textLevel = texts[0];
+        textName = texts[1];
+        textDesc = texts[2];
     }
-    void LateUpdate()
+
+    void OnEnable()
     {
         textLevel.text = "Lv." + (level);
+
+        switch (data.itemType)
+        {
+            case ItemData.ItemType.Melee:
+            case ItemData.ItemType.Range:
+                textDesc.text = string.Format(data.itemDescription, data.damages[level] * 100, data.counts[level]);
+                break;
+            case ItemData.ItemType.Glove:
+            case ItemData.ItemType.Shoe:
+                textDesc.text = string.Format(data.itemDescription, data.damages[level]*100);
+                break ;
+            default:
+                textDesc.text = string.Format(data.itemDescription);
+                break;
+
+
+
+        }
     }
+
     public void OnClick()
     {
         switch (data.itemType) //Item Data 클래스에서 enum ItemType { Melee, Range, Glove, Shoe, Heal}
@@ -37,12 +61,12 @@ public class Item : MonoBehaviour
             case ItemData.ItemType.Melee:
             case ItemData.ItemType.Range:
                 //★두개를 붙혀주는이유 파악해야함 -> itemData는 버튼에 따라 알아서 itemType을 전달해주고
-                
+
                 if (level == 0)
                 {
                     GameObject newWeapon = new GameObject(); //업그레이드 버튼 눌러줬기때매 첫 생성
                     weapon = newWeapon.AddComponent<Weapon>();
-                    weapon.Init(data); //Data폴더의 itemdata를 전달
+                    /*문제*/weapon.Init(data); //Data폴더의 itemdata를 전달 //@@@@@
                 }
                 else
                 {
@@ -56,7 +80,7 @@ public class Item : MonoBehaviour
 
             case ItemData.ItemType.Glove:
             case ItemData.ItemType.Shoe:
-                if(level==0)
+                if (level == 0)
                 {
                     GameObject newGear = new GameObject(); //업그레이드 버튼 눌러줬기때매 첫 생성
                     gear = newGear.AddComponent<Gear>();
@@ -73,7 +97,8 @@ public class Item : MonoBehaviour
                 GameManager.instance.health = GameManager.instance.maxHealth;
                 break;
         }
-        
+
+
 
         if (level == data.damages.Length) //itemdata에서 damages 배열길이를 가져와서 그 배열길이와 같으면 레벨이 최대라고 판단
         {

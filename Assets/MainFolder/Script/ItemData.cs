@@ -11,6 +11,7 @@ public class ItemData : ScriptableObject
     public ItemType itemType; //enum을 담아줄게 필요함.
     public int itemId;
     public string itemName;
+    [TextArea]
     public string itemDescription;
     public Sprite itemIcon; //스프라이트를 담아줘야 캔버스에 스프라이트 이미지로 버튼표시해줌
 
@@ -23,5 +24,6 @@ public class ItemData : ScriptableObject
 
     [Header("#Weapon")]
     public GameObject projectile; //프리펩을 담아줘야함.
+    public Sprite hand;
 
 }

@@ -31,6 +31,8 @@ public class Enemy : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (!GameManager.instance.isLive)
+            return;
         if (!isLive || anim.GetCurrentAnimatorStateInfo(0).IsName("Hit")) return;
 
         Vector2 dirVec = target.position - rigid.position; //방향 = 타겟 위치 - 몹위치
@@ -43,6 +45,8 @@ public class Enemy : MonoBehaviour
 
     void LateUpdate()
     {
+        if (!GameManager.instance.isLive)
+            return;
         spriter.flipX = target.position.x < rigid.position.x;
         //몬스터가 플레이어 바라보기
     }

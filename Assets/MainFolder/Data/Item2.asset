@@ -15,7 +15,7 @@ MonoBehaviour:
   itemType: 2
   itemId: 2
   itemName: "\uC544\uB4DC\uB808\uB0A0\uB9B0\uC8FC\uC0AC\uAE30"
-  itemDescription: "Damages\uAC12\uC740 \uC5F0\uC0AC\uB825"
+  itemDescription: "\uC5F0\uC0AC\uC18D\uB3C4 {0}% \uC99D\uAC00"
   itemIcon: {fileID: -201829820, guid: d71a3dc7aa20fad4f9a99fc76a9254ba, type: 3}
   baseDamage: 0
   baseCount: 0
@@ -27,3 +27,4 @@ MonoBehaviour:
   - 0.125
   counts: 0000000000000000000000000000000000000000
   projectile: {fileID: 0}
+  hand: {fileID: 0}

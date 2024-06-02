@@ -27,6 +27,8 @@ public class Weapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!GameManager.instance.isLive)
+            return;
         switch (id)
         {
             case 0: //근접 회전 무기
@@ -97,10 +99,21 @@ public class Weapon : MonoBehaviour
                 speed = 0.85f;
                 break;
         }
+
+        //Hand Set
+        /*문제*/Hand hand = player.hands[(int)data.itemType]; 
+        //배열에 있는 핸즈들 가져오고 enum값의 int를 가져옴 //@@@@@
+        Debug.LogError(player.hands[(int)data.itemType]);
+
+        //가져온 손을 활용함
+        hand.spriter.sprite = data.hand;
+        hand.gameObject.SetActive(true);
+
         //어플라이기어라는 함수를 가지고 있는 모두에게 이걸 실행해줘
-        player.BroadcastMessage("ApplyGear",SendMessageOptions.DontRequireReceiver);
+        player.BroadcastMessage("ApplyGear", SendMessageOptions.DontRequireReceiver);
 
     }
+
     void Batch()
     {
         for (int index = 0; index < count; index++)

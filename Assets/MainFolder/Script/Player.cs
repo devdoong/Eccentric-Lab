@@ -9,11 +9,15 @@ public class Player : MonoBehaviour
 {
 
     public Vector2 inputVec;
-    Rigidbody2D rigid;
     public float speed;
+    public EnemyScanner EnemyScanner; //scanner
+    public Hand[] hands;
+
+
+    Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
     Animator Animator;
-    public EnemyScanner EnemyScanner;
+    
 
 
     void Start()
@@ -22,6 +26,7 @@ public class Player : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         Animator = GetComponent<Animator>();
         EnemyScanner = GetComponent<EnemyScanner>();
+        hands = GetComponentsInChildren<Hand>(true);
     }
 
     void OnMove(InputValue value)
@@ -30,12 +35,16 @@ public class Player : MonoBehaviour
     }
     void FixedUpdate()
     {
+        if (!GameManager.instance.isLive)
+            return;
         Vector2 nextVec = inputVec * speed * Time.fixedDeltaTime;
         rigid.MovePosition(rigid.position + nextVec);
     }
 
     void LateUpdate()
     {
+        if (!GameManager.instance.isLive)
+            return;
         Animator.SetFloat("Speed", inputVec.magnitude);
 
         if(inputVec.x != 0)
