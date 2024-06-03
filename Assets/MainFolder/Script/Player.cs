@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
 
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
-    Animator Animator;
+    Animator anim;
     
 
 
@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        Animator = GetComponent<Animator>();
+        anim = GetComponent<Animator>();
         EnemyScanner = GetComponent<EnemyScanner>();
         hands = GetComponentsInChildren<Hand>(true);
     }
@@ -45,9 +45,27 @@ public class Player : MonoBehaviour
     {
         if (!GameManager.instance.isLive)
             return;
-        Animator.SetFloat("Speed", inputVec.magnitude);
+        anim.SetFloat("Speed", inputVec.magnitude);
 
         if(inputVec.x != 0)
             spriteRenderer.flipX = inputVec.x < 0; 
+    }
+
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        if (!GameManager.instance.isLive)
+            return;
+
+        GameManager.instance.health -= Time.deltaTime * 10;
+
+        if (GameManager.instance.health < 0)
+        {
+            for (int index=2; index < transform.childCount; index++)
+            {
+                transform.GetChild(index).gameObject.SetActive(false);
+            }
+            anim.SetTrigger("Dead");
+            GameManager.instance.GameOver();
+        }
     }
 }
