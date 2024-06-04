@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Linq;
 
 public class Player : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class Player : MonoBehaviour
     public float speed;
     public EnemyScanner EnemyScanner; //scanner
     public Hand[] hands;
+    public RuntimeAnimatorController[] animCon;
 
 
     Rigidbody2D rigid;
@@ -20,13 +22,23 @@ public class Player : MonoBehaviour
     
 
 
-    void Start()
+    void Awake()//
     {
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         EnemyScanner = GetComponent<EnemyScanner>();
         hands = GetComponentsInChildren<Hand>(true);
+        Debug.Log(anim);
+    }
+
+    void OnEnable()
+    {
+        gameObject.SetActive(true);
+        speed *= Character.WeaponSpeed;
+        anim.runtimeAnimatorController = animCon[GameManager.instance.playerId]; //Error2-1 ( 2-2 goto GameMnager.cs 41line)
+
+
     }
 
     void OnMove(InputValue value)

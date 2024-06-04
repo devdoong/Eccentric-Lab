@@ -49,13 +49,13 @@ public class Gear : MonoBehaviour
             switch(weapon.id)//어떤 무기인지 근접무기인지 총인지 뭐인지
             {
                 case 0: //회전 bullet0
-                    //weapon.speed = 150 + (150 * rate);
-                    weapon.speed += (rate*1000) - 100;
+                    float speed = 150 * Character.WeaponSpeed;
+                    weapon.speed = speed + (speed * rate);
                     break;
 
-                case 1: //총 bullet3
-                    //weapon.speed = 0.5f * (1f - rate); 
-                    weapon.speed -= rate;
+                default:
+                    speed = 0.5f * Character.WeaponRate;
+                    weapon.speed = 0.5f * (1f - rate);
                     break;
 
             }
@@ -64,6 +64,7 @@ public class Gear : MonoBehaviour
 
     void SpeedUp()
     {
-        GameManager.instance.player.speed *= rate;
+        float speed = 3 * Character.WeaponSpeed;
+        GameManager.instance.player.speed = speed + speed * rate;
     }
 }

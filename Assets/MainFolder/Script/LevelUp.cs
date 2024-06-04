@@ -11,11 +11,7 @@ public class LevelUp : MonoBehaviour
     {
         rect = GetComponent<RectTransform>();
         items = GetComponentsInChildren<Item>(true);
-        Debug.Log(items.Length);
-        foreach (Item item in items)
-        {
-            Debug.Log(item.name);
-        }
+
     }
 
     public void Show()
@@ -31,7 +27,7 @@ public class LevelUp : MonoBehaviour
         GameManager.instance.Resume();
     }
 
-    public void Select(int index)
+    public void Select(int index) //0이 들어왔음
     {
         /*문제*/items[index].OnClick();//@@@@@
     }

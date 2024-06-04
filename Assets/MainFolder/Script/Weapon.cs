@@ -32,6 +32,7 @@ public class Weapon : MonoBehaviour
         switch (id)
         {
             case 0: //근접 회전 무기
+                
                 transform.Rotate(Vector3.back * speed * Time.deltaTime);
                 break;
 
@@ -45,18 +46,11 @@ public class Weapon : MonoBehaviour
                 }
                 break;
         }
-
-        /*//테스트용
-        if (Input.GetButtonDown("Jump"))
-        {
-            LevelUp(10*//*Damage*//*, 1*//*count*//*);
-        }
-        //*/
     }
 
     public void LevelUp(float damage, int count)
     {
-        this.damage *= damage;
+        this.damage *= damage * Character.Damage;
         this.count += count;
 
         if (id == 0) Batch();
@@ -66,56 +60,52 @@ public class Weapon : MonoBehaviour
     }
 
     public void Init(ItemData data)
-    {
-        //Item Data 만져줄거임 지금부터
-        //Basic Set 기본 세팅
-        name = "Weapon " + data.itemId;
-        transform.parent = player.transform; //플레이어의 자식으로 등록됨
-        transform.localPosition = Vector3.zero; //플레이어의 내에서 0으로 좌표를 맞춤
+     {
+         //Item Data 만져줄거임 지금부터
+         //Basic Set 기본 세팅
+         name = "Weapon " + data.itemId;
+         transform.parent = player.transform; //플레이어의 자식으로 등록됨
+         transform.localPosition = Vector3.zero; //플레이어의 내에서 0으로 좌표를 맞춤
 
-        //Property Set id,damage,count  등등
-        id = data.itemId;
-        damage = data.baseDamage;
-        count = data.baseCount;
+         //Property Set id,damage,count  등등
+         id = data.itemId;
+         damage = data.baseDamage * Character.Damage;
+         count = data.baseCount + Character.Count;
 
-        for (int index = 0; index < GameManager.instance.pool.EnemyPrefeb.Length; index++)
-        {
-            if (data.projectile == GameManager.instance.pool.EnemyPrefeb[index])
-            {
-                prefabId = index;
-                break;
-            }
-        }
+         for (int index = 0; index < GameManager.instance.pool.EnemyPrefeb.Length; index++)
+         {
+             if (data.projectile == GameManager.instance.pool.EnemyPrefeb[index])
+             {
+                 prefabId = index;
+                 break;
+             }
+         }
 
-        switch (id)
-        {
-            case 0:
-                speed = 150;
+         switch (id)
+         {
+             case 0:
+                speed = 150 * Character.WeaponSpeed;
                 Batch();
                 break;
 
-
-            default:
-                speed = 0.85f;
+             default:
+                speed = 0.5f * Character.WeaponRate;
                 break;
-        }
+         }
 
         //Hand Set
-        /*문제*/Hand hand = player.hands[(int)data.itemType]; 
-        //배열에 있는 핸즈들 가져오고 enum값의 int를 가져옴 //@@@@@
-        Debug.LogError(player.hands[(int)data.itemType]);
-
-        //가져온 손을 활용함
+        Hand hand = player.hands[(int)data.itemType];
         hand.spriter.sprite = data.hand;
         hand.gameObject.SetActive(true);
 
-        //어플라이기어라는 함수를 가지고 있는 모두에게 이걸 실행해줘
-        player.BroadcastMessage("ApplyGear", SendMessageOptions.DontRequireReceiver);
+         //어플라이기어라는 함수를 가지고 있는 모두에게 이걸 실행해줘
+         player.BroadcastMessage("ApplyGear", SendMessageOptions.DontRequireReceiver);
 
-    }
+     }
 
     void Batch()
     {
+        Debug.Log("배치실행");
         for (int index = 0; index < count; index++)
         {//레벨업 하니까 추가된 bullet의 갯수가 이상함. 가지고 있던 bullet 재사용해주는 코드임.
             Transform bullet;
@@ -146,6 +136,7 @@ public class Weapon : MonoBehaviour
 
     void Fire()
     {
+        Debug.Log("총실행");
         if (!player.EnemyScanner.nearestTarget)
             return;
 

@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public bool isLive;
 
     [Header("# Player Info")]
+    public int playerId;
     public float health;
     public float maxHealth = 100;
     public int level;
@@ -25,20 +26,19 @@ public class GameManager : MonoBehaviour
     public PoolManager pool;
     public LevelUp uiLevelUp;
     public Result uiResult;
-    public GameObject enemyCleaner;/// <summary>
-    /// 
-    /// </summary>
+    public GameObject enemyCleaner;
 
     private void Awake()
     {
         instance = this;
     }
 
-    public void GameStart()
+    public void GameStart(int id) //게임 시작하면 플레이어 선택하여 정수값을 받음.
     {
+        playerId = id;
         health = maxHealth;
-        ///*문제*/uiLevelUp.Select(0);//@@@@@ Ui레벨업은 레벨업 클래스의 -> Select 함수를 지니고 있음 (기본아이템 주기)
-        GetExp();
+        player.gameObject.SetActive(true);
+        uiLevelUp.Select(playerId % 2);
         Resume();
     }
 
@@ -120,5 +120,3 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 }
-
-
