@@ -130,7 +130,7 @@ public class Weapon : MonoBehaviour
             bullet.Rotate(rotateVec);
             bullet.Translate(bullet.up * 1.5f, Space.World);
 
-            bullet.GetComponent<Bullet>().Init(damage, -1, Vector3.zero); //-1 包烹 公茄
+            bullet.GetComponent<Bullet>().Init(damage, -100, Vector3.zero); //-100 包烹 公茄
 
             AudioManager.instance.PlaySfx(AudioManager.Sfx.Range);
         }

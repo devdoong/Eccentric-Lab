@@ -21,25 +21,23 @@ public class Reposition : MonoBehaviour
         Vector3 tileMapPosition = transform.position; //타일맵의 포지션
 
         
-        float diffX = Mathf.Abs(playerPosition.x - tileMapPosition.x); //절대값으로 가져옴 Mathf.Abs()
-        float diffY = Mathf.Abs(playerPosition.y - tileMapPosition.y);
-        //위 코드 : 타일맵의 거리와 플레이어의 거리의 절대값을 저장해줌.
-        
-        
-        Vector3 playerDir = GameManager.instance.player.inputVec;
-        //플레이어에 입력된 벡터값을 저장함.
 
-        
-        float dirX = playerDir.x < 0 ? -1 : 1; 
-        float dirY = playerDir.y < 0 ? -1 : 1;
-        //플레이어가 어디로 가는지 확인
-        //대각선 방향이면 Normalized에 의해 1보다 작은 값이 될것임.
 
 
         switch (transform.tag) //Area태그가 탈주한 오브젝트가 Ground1이라면?
         {
             case "Ground1":
-                if(diffX > diffY)
+                //플레이어와 타일맵의 거리를 계산
+                float diffX = playerPosition.x - tileMapPosition.x; 
+                float diffY = playerPosition.y - tileMapPosition.y;
+                float dirX = diffX < 0 ? -1 : 1;  // 음수면 타일맵이 플레이어보다 왼쪽, 양수면 오른쪽
+                float dirY = diffY < 0 ? -1 : 1;
+                
+              
+                diffX = Mathf.Abs(diffX);
+                diffY = Mathf.Abs(diffY);
+
+                if (diffX > diffY)
                 {
                     transform.Translate(Vector3.right * dirX * 40); //Translate 이동할 양을 넣어주면된다.
                 }
@@ -53,14 +51,16 @@ public class Reposition : MonoBehaviour
                     transform.Translate(Vector3.up * dirY * 40);
                 }
                 break;
-            /*case "Enemy":
+
+            case "Enemy":
                 if (coll.enabled)
                 {
-                    transform.Translate(playerDir * 20 + new Vector3(Random.Range(-3f, 3f), 0f));
-                    //몬스터 재배치
-                    //재배치하고나면 재배치된 몬스터의 체력을 다시 채워줄 필요가 있음.
+                    Vector3 dist = playerPosition - tileMapPosition;
+
+                    Vector3 ran = new Vector3(Random.Range(-3, 3), Random.Range(-3, 3), 0); //랜덤 벡터 더하여 퍼져있는 몬스터 재배치
+                    transform.Translate(ran + dist * 2);
                 }
-                break;*/
+                break;
 
         }
     }

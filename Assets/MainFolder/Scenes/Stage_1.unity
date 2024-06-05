@@ -2599,7 +2599,7 @@ MonoBehaviour:
   level: 0
   kill: 0
   exp: 0
-  nextExp: 0100000002000000030000000400000005000000060000000700000008000000090000000a000000
+  nextExp: 0a0000001e0000003c0000006400000096000000d20000001801000068010000c201000058020000
   player: {fileID: 1361213788}
   pool: {fileID: 43425472}
   uiLevelUp: {fileID: 3682515}
@@ -3235,6 +3235,7 @@ MonoBehaviour:
     spriteType: 1
     health: 15
     speed: 2.4
+  levelTime: 0
 --- !u!1 &578337154
 GameObject:
   m_ObjectHideFlags: 0

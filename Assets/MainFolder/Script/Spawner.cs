@@ -7,6 +7,7 @@ public class Spawner : MonoBehaviour
 {
     public Transform[] spawnPoint;
     public SpawnData[] spawnData;
+    public float levelTime;
     //개선사항 메모
     // Spawn함수를 건드려서
     // Update를 통해 시간을 측정하고
@@ -18,6 +19,7 @@ public class Spawner : MonoBehaviour
     private void Awake()
     {
         spawnPoint = GetComponentsInChildren<Transform>();
+        levelTime = GameManager.instance.maxGameTime / spawnData.Length;
     }
     void Update()
     {
