@@ -131,6 +131,8 @@ public class Weapon : MonoBehaviour
             bullet.Translate(bullet.up * 1.5f, Space.World);
 
             bullet.GetComponent<Bullet>().Init(damage, -1, Vector3.zero); //-1 관통 무한
+
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.Range);
         }
     }
 
@@ -151,5 +153,7 @@ public class Weapon : MonoBehaviour
         bullet.position = transform.position;
         bullet.rotation = Quaternion.FromToRotation(Vector3.up, dir);//목표 방향으로 로테이션 //축을 전달해줘야함
         bullet.GetComponent<Bullet>().Init(damage, count/*남은관통수*/, dir);
+
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.Range);
     }
 }

@@ -36,7 +36,9 @@ public class Bullet : MonoBehaviour
         {
             rigid.velocity = Vector3.zero;//비활전에 물리 속도 초기화
             gameObject.SetActive(false); //오브젝트 풀링으로 사용할거라 액티브만 비활성화
+ 
         }
+
     }
 
 }

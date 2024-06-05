@@ -10,6 +10,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip bgmClip;
     public float bgmVolume;
     AudioSource bgmPlayer;
+    AudioHighPassFilter bgmEffect;
 
     [Header("#SFX")]
     public AudioClip[] sfxClips;
@@ -18,6 +19,7 @@ public class AudioManager : MonoBehaviour
     AudioSource[] sfxPlayers;  // 배열로 선언
     int channelIndex;
 
+    public enum Sfx { Dead, Hit, LevelUp=3, Lose=4, Melee, Range =7, Select, Win }
 
     void Awake()
     {
@@ -35,6 +37,7 @@ public class AudioManager : MonoBehaviour
         bgmPlayer.loop = true;
         bgmPlayer.volume = bgmVolume;
         bgmPlayer.clip = bgmClip;
+        bgmEffect = Camera.main.GetComponent<AudioHighPassFilter>();
 
         // 효과음 플레이어 초기화
         GameObject sfxObject = new GameObject("SfxPlayer");
@@ -45,7 +48,48 @@ public class AudioManager : MonoBehaviour
         {
             sfxPlayers[index] = sfxObject.AddComponent<AudioSource>();
             sfxPlayers[index].playOnAwake = false;
+            sfxPlayers[index].bypassListenerEffects = true;
             sfxPlayers[index].volume = sfxVolume;
+        }
+    }
+
+    public void PlayBgm(bool isPlay)
+    {
+        if (isPlay)
+        {
+            bgmPlayer.Play();
+        }
+        else
+        {
+            bgmPlayer.Stop();
+        }
+    }
+
+    public void EffectBgm(bool isPlay)
+    {
+        bgmEffect.enabled = isPlay;
+    }
+
+
+    public void PlaySfx(Sfx sfx)
+    {
+        for (int index = 0; index < sfxPlayers.Length; index++)
+        {
+            int loopIndex = (index + channelIndex) % sfxPlayers.Length;
+
+            if (sfxPlayers[loopIndex].isPlaying) //재생하고 있는 효과음 있다면
+                continue; //다음으로
+
+            int ranIndex = 0;
+            if(sfx == Sfx.Hit || sfx == Sfx.Melee)
+            {
+                ranIndex = Random.Range(0,2);
+            }
+
+            channelIndex = loopIndex;
+            sfxPlayers[loopIndex].clip = sfxClips[(int)sfx+ranIndex];
+            sfxPlayers[loopIndex].Play();
+            break;
         }
     }
 }
