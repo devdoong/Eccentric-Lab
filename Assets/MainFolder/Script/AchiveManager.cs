@@ -7,14 +7,17 @@ public class AchiveManager : MonoBehaviour
 {
     public GameObject[] lockCharacter;
     public GameObject[] unlockCharacter;
+    public GameObject uiNoitce;
 
     enum Achive { UnlockPotato, UnlockBean }
 
     Achive[] achives;
+    WaitForSecondsRealtime wait;
 
     private void Awake()
     {
         achives = (Achive[])Enum.GetValues(typeof(Achive));
+        wait = new WaitForSecondsRealtime(5);
         if (!PlayerPrefs.HasKey("MyData")) //최초실행 확인
         {
             Init();
@@ -47,4 +50,49 @@ public class AchiveManager : MonoBehaviour
         }
     }
 
+    void LateUpdate()
+    {
+            foreach (Achive achive in achives)
+        {
+            CheckAchieve(achive);
+        }
+    }
+
+    void CheckAchieve(Achive achive)
+    {
+        bool isAchieve = false;
+
+        switch (achive)
+        {
+            case Achive.UnlockPotato:
+                isAchieve = GameManager.instance.kill >= 10;
+                break;
+            case Achive.UnlockBean:
+                isAchieve = GameManager.instance.gameTime == GameManager.instance.maxGameTime;
+                break;
+
+        }
+
+        if (isAchieve && PlayerPrefs.GetInt(achive.ToString()) == 0)
+        {
+            PlayerPrefs.SetInt(achive.ToString(), 1);
+
+            for (int index = 0; index < uiNoitce.transform.childCount; index++)
+            {
+                bool isActive = index == (int)achive;
+                uiNoitce.transform.GetChild(index).gameObject.SetActive(isActive);
+            }
+
+            StartCoroutine(NoticeRoutine());
+        }
+    }
+
+    IEnumerator NoticeRoutine()
+    {
+        uiNoitce.SetActive(true);
+        
+        yield return wait;
+
+        uiNoitce.SetActive(false);
+    }
 }
