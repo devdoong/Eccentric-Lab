@@ -20,12 +20,11 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
-    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMipmapLimit: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -64,7 +63,6 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
-  swizzle: 50462976
   cookieLightType: 0
   platformSettings:
   - serializedVersion: 3
@@ -540,27 +538,28 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Weapon 0: 143021600
-      Weapon 2: 1349035616
-      Exp 0: 362616440
-      Shadow: 1304559308
-      Health: 934571490
-      Bullet 0: 1737672109
-      Weapon 5: 1772703093
-      Bullet 5: 154122315
-      Weapon 1: -1972582131
-      Weapon 3: -353751291
-      Weapon 4: -144335857
-      Bullet 3: -537537479
-      Bullet 1: -703694536
       Box: -38345435
+      Bullet 0: 1737672109
+      Bullet 1: -703694536
+      Bullet 2: 762804792
+      Bullet 3: -537537479
+      Bullet 4: -1327499133
+      Bullet 5: 154122315
+      Exp 0: 362616440
       Exp 1: 1807624531
       Exp 2: -1997803578
+      Health: 934571490
       Mag: 1997828774
-      Bullet 2: 762804792
-      Bullet 4: -1327499133
-  mipmapLimitGroupName: 
+      Shadow: 1304559308
+      Weapon 0: 143021600
+      Weapon 1: -1972582131
+      Weapon 2: 1349035616
+      Weapon 3: -353751291
+      Weapon 4: -144335857
+      Weapon 5: 1772703093
+  spritePackingTag: 
   pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
