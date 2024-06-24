@@ -19,13 +19,13 @@ MonoBehaviour:
     \uCD94\uAC00"
   itemIcon: {fileID: -181907988, guid: d71a3dc7aa20fad4f9a99fc76a9254ba, type: 3}
   baseDamage: 4.5
-  baseCount: 2
+  baseCount: 3
   damages:
+  - 0.5
+  - 1
   - 1.5
-  - 1.5
-  - 1.5
-  - 1.5
-  - 1.5
-  counts: 0100000001000000010000000100000001000000
+  - 2
+  - 3
+  counts: 0100000001000000010000000100000002000000
   projectile: {fileID: 1381367903223144706, guid: f8ec6474f5159f84cb2aa04a0220b417, type: 3}
   hand: {fileID: 143021600, guid: 0d5e657ee5a074e4baa53d5b248a01d2, type: 3}

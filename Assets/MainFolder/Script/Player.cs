@@ -35,8 +35,8 @@ public class Player : MonoBehaviour
     void OnEnable()
     {
         gameObject.SetActive(true);
-        speed *= Character.WeaponSpeed;
-        anim.runtimeAnimatorController = animCon[GameManager.instance.playerId]; //Error2-1 ( 2-2 goto GameMnager.cs 41line)
+        speed *= Character.Speed; 
+        anim.runtimeAnimatorController = animCon[GameManager.instance.playerId];
 
 
     }

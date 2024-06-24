@@ -31,9 +31,9 @@ public class LevelUp : MonoBehaviour
         AudioManager.instance.EffectBgm(false);
     }
 
-    public void Select(int index) //0이 들어왔음
+    public void Select(int index)//1
     {
-        /*문제*/items[index].OnClick();//@@@@@
+        items[index].OnClick();
     }
 
     void Next()

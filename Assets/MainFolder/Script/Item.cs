@@ -66,7 +66,7 @@ public class Item : MonoBehaviour
                 {
                     GameObject newWeapon = new GameObject(); //업그레이드 버튼 눌러줬기때매 첫 생성
                     weapon = newWeapon.AddComponent<Weapon>();
-                    /*문제*/weapon.Init(data); //Data폴더의 itemdata를 전달 //@@@@@
+                    weapon.Init(data); //Data폴더의 itemdata를 전달
                 }
                 else
                 {

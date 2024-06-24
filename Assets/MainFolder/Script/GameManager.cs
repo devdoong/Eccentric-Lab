@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     [Header("# GameControl")]
     public float gameTime;//게임시간
     public float maxGameTime = 2*10f;//게임끝시간 
-    public bool isLive;
+    public bool isLive=false;
 
     [Header("# Player Info")]
     public int playerId;
@@ -35,10 +35,10 @@ public class GameManager : MonoBehaviour
 
     public void GameStart(int id) //게임 시작하면 플레이어 선택하여 정수값을 받음.
     {
-        playerId = id;
+        playerId = id;//게임 처음 시작할 때 클릭한 캐릭터 id
         health = maxHealth;
-        player.gameObject.SetActive(true);
-        uiLevelUp.Select(playerId % 2);
+        player.gameObject.SetActive(true); 
+        uiLevelUp.Select(1);
         Resume();
 
         AudioManager.instance.PlayBgm(true);
@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (!isLive)
+        if (isLive == false)
             return;
         gameTime += Time.deltaTime;
 
