@@ -392,7 +392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5319a47212b25c24c8dbef46562471d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyPrefeb:
+  Prefeb:
   - {fileID: 3857006050853453449, guid: a6afe093af9191d4e97adf711e5055e9, type: 3}
   - {fileID: 1381367903223144706, guid: f8ec6474f5159f84cb2aa04a0220b417, type: 3}
   - {fileID: 7790894185014502103, guid: c201800c114fe2049bead632f37016f3, type: 3}
@@ -2059,7 +2059,7 @@ MonoBehaviour:
   level: 0
   kill: 0
   exp: 0
-  nextExp: 0a0000001e0000003c0000006400000096000000d20000001801000068010000c201000058020000
+  nextExp: 01000000020000000400000008000000100000002000000020000000400000004000000080000000
   player: {fileID: 1361213788}
   pool: {fileID: 43425472}
   uiLevelUp: {fileID: 3682515}
@@ -2704,14 +2704,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoint: []
   spawnData:
-  - spawnTime: 0.7
+  - spawnTime: 0
     spriteType: 0
-    health: 10
+    health: 40
     speed: 1.5
-  - spawnTime: 0.2
+  - spawnTime: 0
     spriteType: 1
-    health: 15
-    speed: 2.4
+    health: 65
+    speed: 1.5
+  - spawnTime: 0
+    spriteType: 2
+    health: 4
+    speed: 1.5
+  - spawnTime: 0
+    spriteType: 3
+    health: 220
+    speed: 2
   levelTime: 0
 --- !u!1 &578337154
 GameObject:

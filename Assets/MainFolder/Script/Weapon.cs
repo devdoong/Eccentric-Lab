@@ -72,9 +72,9 @@ public class Weapon : MonoBehaviour
          damage = data.baseDamage * Character.Damage;
          count = data.baseCount + Character.Count;
 
-         for (int index = 0; index < GameManager.instance.pool.EnemyPrefeb.Length; index++)
+         for (int index = 0; index < GameManager.instance.pool.Prefeb.Length; index++)
          {
-             if (data.projectile == GameManager.instance.pool.EnemyPrefeb[index])
+             if (data.projectile == GameManager.instance.pool.Prefeb[index])
              {
                  prefabId = index;
                  break;
@@ -138,7 +138,6 @@ public class Weapon : MonoBehaviour
 
     void Fire()
     {
-        Debug.Log("ÃÑ½ÇÇà");
         if (!player.EnemyScanner.nearestTarget)
             return;
 

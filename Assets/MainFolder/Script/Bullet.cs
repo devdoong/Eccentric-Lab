@@ -13,10 +13,10 @@ public class Bullet : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
     }
-    public void Init(float damage, int per, Vector3 shootTarget) //per 관통
+    public void Init(float damage, int per, Vector3 shootTarget) 
     {
         this.damage = damage;
-        this.per = per;
+        this.per = per;//per 관통
 
         if (per >=0 ) //관통이 무한이 아닌것. (근접회전은 -1을 주었음)
         {

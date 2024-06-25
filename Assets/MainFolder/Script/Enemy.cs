@@ -67,7 +67,17 @@ public class Enemy : MonoBehaviour
         anim.runtimeAnimatorController = animCon[data.spriteType]; //애니메이션 가지고 오기.
         speed = data.speed;
         maxHealth = data.health;
-        health = data.health; 
+        health = data.health;
+
+        // spriteType이 2 또는 3일 때 연한 빨간색으로 설정
+        if (data.spriteType == 2 || data.spriteType == 3)
+        {
+            spriter.color = new Color(1f, 0.5f, 0.5f, 1f); // 연한 빨간색
+        }
+        else
+        {
+            spriter.color = Color.white; // 기본 색상
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision) //두번 트리거발생해서 사망로직 연달아 실행되는것 방지해야함

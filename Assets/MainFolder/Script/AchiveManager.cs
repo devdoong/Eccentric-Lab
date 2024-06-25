@@ -45,7 +45,7 @@ public class AchiveManager : MonoBehaviour
         {
             string achiveName = achives[index].ToString();
             bool isUnlock = PlayerPrefs.GetInt(achiveName) == 1;
-            lockCharacter[index].SetActive(!isUnlock);
+            /*lockCharacter[index].SetActive(!isUnlock);*/
             unlockCharacter[index].SetActive(isUnlock);
         }
     }

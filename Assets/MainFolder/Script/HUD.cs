@@ -40,7 +40,7 @@ public class HUD : MonoBehaviour
                 float remainTime = GameManager.instance.maxGameTime - GameManager.instance.gameTime;
                 int min = Mathf.FloorToInt(remainTime / 60);
                 int sec = Mathf.FloorToInt(remainTime % 60);
-                myText.text = string.Format("{0:D2}:{1:D2}", min, sec);
+                myText.text = string.Format("보스 등장까지 {0:D2}:{1:D2}", min, sec);
                 break;
             case InfoType.Health:
                 float curHealth = GameManager.instance.health;
